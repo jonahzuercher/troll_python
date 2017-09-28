@@ -34,7 +34,7 @@ class zweiteKlasse(Thread):
                 
                 root.geometry('%dx%d+%d+%d' % (550, 150, x, y))
 
-            if zaehler == 3:
+            if zaehler == nenner:
                 zaehler = 0
                 nenner += nenner
                 def senden(eingabewidget, labelwidget):
