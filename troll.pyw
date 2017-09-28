@@ -11,7 +11,7 @@ class ersteKlasse(Thread):
                 time.sleep(5)
                 while True:
                         ctypes.windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
-                        time.sleep(random.randint(2, 5))
+                        time.sleep(random.randint(5, 90))
 
 
 
