@@ -1,5 +1,5 @@
 # troll_python
-A funny Troll Virus written in Python3 
+A funny Troll "Virus" written in Python3 to try on your friends. xD
 
 Default Password = PWforTroll
 
