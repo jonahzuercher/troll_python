@@ -130,7 +130,7 @@ class dritteKlasse(Thread):
         def run(self):
                 while True:
                         winsound.PlaySound("troll.wav", winsound.SND_ASYNC | winsound.SND_ALIAS )
-                        time.sleep(162)
+                        time.sleep(123)
                         
                 
 if __name__=='__main__':
