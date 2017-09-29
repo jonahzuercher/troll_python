@@ -60,7 +60,7 @@ class zweiteKlasse(Thread):
                     self.after(200, self.secondflash)
 
             if __name__ == "__main__":
-                if zaehler == nenner:
+                if zaehler == 3:
                     zaehler = 0
                     nenner += nenner
                     def senden(eingabewidget, labelwidget):
@@ -92,11 +92,12 @@ class zweiteKlasse(Thread):
                     labelAntwort = tk.Label(root1, text=antwort, width=200, bg="white", fg="black")
 
                     #Eingabe
-                    eingabe = tk.Entry(root1, show="*", width=25, text=antwort1, font=("Comic Sans MS", 30))
+                    eingabe = tk.Entry(root1, show="*", width=25, text=antwort1, font=("Comic Sans MS", 30), fg="red")
                     eingabe.pack()
 
                     button = tk.Button(root1,
                                             text = "eingabe",
+                                            bg="red", fg="yellow",
                                             height=2, width=15,
                                             font=("Comic Sans MS", 20),
                                             command = lambda: senden(eingabe, labelAntwort))
