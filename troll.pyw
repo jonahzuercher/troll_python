@@ -60,7 +60,7 @@ class zweiteKlasse(Thread):
                     self.after(200, self.secondflash)
 
             if __name__ == "__main__":
-                if zaehler == 3:
+                if zaehler == nenner:
                     zaehler = 0
                     nenner += nenner
                     def senden(eingabewidget, labelwidget):
