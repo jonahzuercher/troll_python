@@ -1,3 +1,6 @@
+### Autor --> Jonah ###
+### Created on Windows Python IDLE 3.5 ###
+
 import time, os, ctypes, tkinter as tk, random, winsound
 from threading import Thread
 
